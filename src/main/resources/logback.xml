@@ -1,6 +1,6 @@
 <configuration>
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>${LOG_PATH}/security.log</file>
+        <file>${LOG_PATH}/application.log</file>
         <append>true</append>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
