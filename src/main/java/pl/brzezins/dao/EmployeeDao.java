@@ -2,13 +2,13 @@ package pl.brzezins.dao;
 
 import pl.brzezins.entity.Employee;
 
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 
-@Stateful
+@Stateless
 public class EmployeeDao {
     @PersistenceContext(unitName = "mysqlds")
     EntityManager entityManager;
