@@ -51,6 +51,7 @@ public class EmployeeServlet extends HttpServlet {
                     dispatcher = create(request, response);
                     break;
                 default:
+                    response.sendRedirect(request.getContextPath() + "/employees");
                     break;
             }
         }
