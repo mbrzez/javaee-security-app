@@ -27,6 +27,10 @@ public class Employee {
         this.addresses = addresses;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

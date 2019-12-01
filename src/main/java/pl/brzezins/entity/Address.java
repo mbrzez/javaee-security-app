@@ -26,6 +26,10 @@ public class Address {
         this.employee = employee;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getStreet() {
         return street;
     }
