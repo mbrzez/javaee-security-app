@@ -25,8 +25,6 @@ public class EmployeeMapper implements DtoMapper<EmployeeDto, Employee> {
             addressesDto = addresses.stream().map(addressMapper::convert).collect(Collectors.toList());
         }
 
-        EmployeeDto employeeDto = new EmployeeDto(employee.getId(), employee.getName(), employee.getSurname(), employee.getTelephone(), addressesDto);
-
-        return employeeDto;
+        return new EmployeeDto(employee.getId(), employee.getName(), employee.getSurname(), employee.getTelephone(), addressesDto);
     }
 }
