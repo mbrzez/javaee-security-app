@@ -10,7 +10,6 @@ public class EmployeeDto implements Dto {
     private String telephone;
     private List<AddressDto> addresses = new ArrayList<>();
 
-
     public EmployeeDto(Long id, String name, String surname, String telephone, List<AddressDto> addresses) {
         this.id = id;
         this.name = name;

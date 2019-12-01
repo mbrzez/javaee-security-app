@@ -7,7 +7,6 @@ public class AddressDto implements Dto {
     private String cityCode;
     private EmployeeDto employee;
 
-
     public AddressDto(Long id, String street, String city, String cityCode, EmployeeDto employee) {
         this.street = street;
         this.city = city;
