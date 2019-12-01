@@ -12,7 +12,7 @@ import java.util.Optional;
 @Stateless
 public class EmployeeDao implements Dao<Employee> {
     @PersistenceContext(unitName = "mysqlds")
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     public Optional<Employee> get(long id) {
