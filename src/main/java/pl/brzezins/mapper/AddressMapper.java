@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class AddressMapper implements DtoMapper<AddressDto, Address> {
     @Override
     public AddressDto convert(Address address) {
-        AddressDto addressDto = new AddressDto(address.getStreet(), address.getCity(), address.getCityCode(), null);
+        AddressDto addressDto = new AddressDto(address.getId(), address.getStreet(), address.getCity(), address.getCityCode(), null);
         addressDto.setId(address.getId());
 
         return addressDto;

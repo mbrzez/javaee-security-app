@@ -19,15 +19,13 @@ public class EmployeeMapper implements DtoMapper<EmployeeDto, Employee> {
     @Override
     public EmployeeDto convert(Employee employee) {
         List<Address> addresses = employee.getAddresses();
-
         List<AddressDto> addressesDto = Collections.emptyList();
 
         if (addresses != null && !addresses.isEmpty()) {
             addressesDto = addresses.stream().map(addressMapper::convert).collect(Collectors.toList());
         }
 
-        EmployeeDto employeeDto = new EmployeeDto(employee.getName(), employee.getSurname(), employee.getTelephone(), addressesDto);
-        employeeDto.setId(employee.getId());
+        EmployeeDto employeeDto = new EmployeeDto(employee.getId(), employee.getName(), employee.getSurname(), employee.getTelephone(), addressesDto);
 
         return employeeDto;
     }
