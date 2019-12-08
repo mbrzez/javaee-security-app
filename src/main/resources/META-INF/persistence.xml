@@ -12,7 +12,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
             <property name="hibernate.format_sql" value="true" />
         </properties>
     </persistence-unit>
-    <persistence-unit name="h2ds">
+    <!--<persistence-unit name="h2ds">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:/h2ds</jta-data-source>
         <properties>
@@ -21,5 +21,5 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
         </properties>
-    </persistence-unit>
+    </persistence-unit>-->
 </persistence>
