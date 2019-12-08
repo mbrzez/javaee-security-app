@@ -1,6 +1,5 @@
 package pl.brzezins.servlet;
 
-import org.slf4j.Logger;
 import pl.brzezins.dao.Dao;
 import pl.brzezins.dto.EmployeeDto;
 import pl.brzezins.entity.Employee;
@@ -33,29 +32,27 @@ public class EmployeeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String view = null;
         String pathInfo = request.getPathInfo();
 
         if (pathInfo == null) {
-            List<Employee> employees = employeeDao.getAll();
-            List<EmployeeDto> employeesDto = employeeMapper.convertList(employees);
-
-            request.setAttribute("employees", employeesDto);
-            dispatcher = request.getRequestDispatcher("/WEB-INF/views/employees.jsp");
-
+            getProcessMainPage(request);
+            view = "/WEB-INF/views/employees.jsp";
         } else {
             switch (pathInfo) {
                 case "/edit":
-                    dispatcher = edit(request, response);
+                    getProcessEdit(request);
+                    view = "/WEB-INF/views/edit_employee.jsp";
                     break;
                 case "/create":
-                    dispatcher = create(request, response);
+                    view = "/WEB-INF/views/create_employee.jsp";
                     break;
                 default:
                     response.sendRedirect(request.getContextPath() + "/employees");
-                    break;
             }
         }
 
+        RequestDispatcher dispatcher = request.getRequestDispatcher(view);
         dispatcher.forward(request, response);
     }
 
@@ -66,24 +63,10 @@ public class EmployeeServlet extends HttpServlet {
         if (pathInfo != null) {
             switch (pathInfo) {
                 case "/edit":
-                    long id = Long.parseLong(request.getParameter("id"));
-                    Optional<Employee> employeeOptional = employeeDao.get(id);
-
-                    employeeOptional.ifPresent(entity -> {
-                        entity.setName(request.getParameter("name"));
-                        entity.setSurname(request.getParameter("surname"));
-                        entity.setTelephone(request.getParameter("telephone"));
-
-                        employeeDao.update(entity);
-                    });
-
+                    postProcessEdit(request);
                     break;
                 case "/create":
-                    employeeDao.save(new Employee(
-                            request.getParameter("name"),
-                            request.getParameter("surname"),
-                            request.getParameter("telephone"),
-                            null));
+                    postProcessCreate(request);
                     break;
                 default:
                     break;
@@ -93,7 +76,14 @@ public class EmployeeServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/employees");
     }
 
-    private RequestDispatcher edit(HttpServletRequest request, HttpServletResponse response) {
+    private void getProcessMainPage(HttpServletRequest request) {
+        List<Employee> employees = employeeDao.getAll();
+        List<EmployeeDto> employeesDto = employeeMapper.convertList(employees);
+
+        request.setAttribute("employees", employeesDto);
+    }
+
+    private void getProcessEdit(HttpServletRequest request) {
         long id = Long.parseLong(request.getParameter("id"));
         Optional<Employee> employeeOptional = employeeDao.get(id);
 
@@ -108,11 +98,27 @@ public class EmployeeServlet extends HttpServlet {
 
             request.setAttribute("employee", employeeDto);
         });
-
-        return request.getRequestDispatcher("/WEB-INF/views/edit_employee.jsp");
     }
 
-    private RequestDispatcher create(HttpServletRequest request, HttpServletResponse response) {
-        return request.getRequestDispatcher("/WEB-INF/views/create_employee.jsp");
+    private void postProcessEdit(HttpServletRequest request) {
+        long id = Long.parseLong(request.getParameter("id"));
+        Optional<Employee> employeeOptional = employeeDao.get(id);
+
+        employeeOptional.ifPresent(entity -> {
+            entity.setName(request.getParameter("name"));
+            entity.setSurname(request.getParameter("surname"));
+            entity.setTelephone(request.getParameter("telephone"));
+
+            employeeDao.update(entity);
+        });
+    }
+
+    private void postProcessCreate(HttpServletRequest request) {
+        employeeDao.save(new Employee(
+                request.getParameter("name"),
+                request.getParameter("surname"),
+                request.getParameter("telephone"),
+                null)
+        );
     }
 }
