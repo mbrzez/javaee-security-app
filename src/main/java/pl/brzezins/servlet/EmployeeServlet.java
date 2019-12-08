@@ -37,15 +37,19 @@ public class EmployeeServlet extends HttpServlet {
 
         if (pathInfo == null) {
             getProcessMainPage(request);
-            view = "/WEB-INF/views/employees.jsp";
+            view = "/WEB-INF/views/employee/index.jsp";
         } else {
             switch (pathInfo) {
                 case "/edit":
                     getProcessEdit(request);
-                    view = "/WEB-INF/views/edit_employee.jsp";
+                    view = "/WEB-INF/views/employee/edit.jsp";
                     break;
                 case "/create":
-                    view = "/WEB-INF/views/create_employee.jsp";
+                    view = "/WEB-INF/views/employee/create.jsp";
+                    break;
+                case "/delete":
+                    getProcessDelete(request);
+                    view = "/WEB-INF/views/employee/delete.jsp";
                     break;
                 default:
                     response.sendRedirect(request.getContextPath() + "/employees");
@@ -67,6 +71,9 @@ public class EmployeeServlet extends HttpServlet {
                     break;
                 case "/create":
                     postProcessCreate(request);
+                    break;
+                case "/delete":
+                    postProcessDelete(request);
                     break;
                 default:
                     break;
@@ -100,6 +107,10 @@ public class EmployeeServlet extends HttpServlet {
         });
     }
 
+    private void getProcessDelete(HttpServletRequest request) {
+        getProcessEdit(request);
+    }
+
     private void postProcessEdit(HttpServletRequest request) {
         long id = Long.parseLong(request.getParameter("id"));
         Optional<Employee> employeeOptional = employeeDao.get(id);
@@ -119,6 +130,14 @@ public class EmployeeServlet extends HttpServlet {
                 request.getParameter("surname"),
                 request.getParameter("telephone"),
                 null)
+        );
+    }
+
+    private void postProcessDelete(HttpServletRequest request) {
+        long id = Long.parseLong(request.getParameter("id"));
+
+        employeeDao.get(id).ifPresent(
+                employee -> employeeDao.delete(employee)
         );
     }
 }
