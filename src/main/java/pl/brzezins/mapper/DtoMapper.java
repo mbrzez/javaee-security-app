@@ -7,7 +7,6 @@ public interface DtoMapper<T, V> {
     T convert(V object);
 
     // Default method implementation
-    // otherwise List<T> convertList(List<V> objects);
     default List<T> convertList(List<V> objects) {
         return objects.stream().map(this::convert).collect(Collectors.toList());
     }
