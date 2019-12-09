@@ -37,6 +37,8 @@ public class EmployeeDao implements Dao<Employee> {
 
     @Override
     public void delete(Employee employee) {
+        employee = entityManager.merge(employee);
         entityManager.remove(employee);
     }
+
 }
