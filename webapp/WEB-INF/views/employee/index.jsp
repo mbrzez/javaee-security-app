@@ -14,7 +14,7 @@
     </div>
     <table class="table">
         <thead>
-            <tr><th>Id</th><th>Name</th><th>Surname</th><th>Options</th></tr>
+            <tr><th>Id</th><th>Name</th><th>Surname</th><th>Telephone</th><th>Options</th></tr>
         </thead>
         <tbody>
             <c:forEach items="${employees}" var="employee">
@@ -22,6 +22,7 @@
                     <td>${employee.id}</td>
                     <td>${employee.name}</td>
                     <td>${employee.surname}</td>
+                    <td>${employee.telephone}</td>
                     <td>
                         <a href="${pageContext.request.contextPath}/employees/edit?id=${employee.id}">Edit</a>
                         <a class="ml-2" href="${pageContext.request.contextPath}/employees/delete?id=${employee.id}">Delete</a>
