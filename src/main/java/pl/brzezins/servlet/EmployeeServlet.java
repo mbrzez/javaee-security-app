@@ -31,8 +31,6 @@ public class EmployeeServlet extends HttpServlet {
     @Inject
     private EmployeeMapper employeeMapper;
 
-    private RequestDispatcher dispatcher;
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String view = null;
