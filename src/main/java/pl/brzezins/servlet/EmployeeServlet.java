@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.HttpMethodConstraint;
 import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-@ServletSecurity(@HttpConstraint(rolesAllowed = "admin_role"))
+@ServletSecurity(httpMethodConstraints = {
+    @HttpMethodConstraint(value = "POST", rolesAllowed = {"admin_role"})
+})
 @WebServlet("/employees/*")
 public class EmployeeServlet extends HttpServlet {
     @EJB(beanName="EmployeeDao")
